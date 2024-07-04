@@ -4,6 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "CurrencyAdapter.h"
+#include "NodeAdapter.h"
 #include "CryptoNoteWalletConfig.h"
 #include "LoggerAdapter.h"
 #include "Settings.h"
@@ -42,7 +43,7 @@ QString CurrencyAdapter::getCurrencyTicker() const {
 }
 
 quint64 CurrencyAdapter::calculateInterest(quint64 _amount, quint32 _term) const {
-  return m_currency.calculateInterest(_amount, _term);
+  return m_currency.calculateInterest(_amount, _term, NodeAdapter::instance().getLastKnownBlockHeight());
 }
 
 quint64 CurrencyAdapter::getMinimumFee() const {

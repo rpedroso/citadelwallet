@@ -28,6 +28,7 @@ public:
   void close();
   bool save(bool _details, bool _cache);
   void backup(const QString& _file);
+  void reset();
 
   QString getAddress() const;
   quint64 getActualBalance() const;

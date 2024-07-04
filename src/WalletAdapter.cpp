@@ -216,6 +216,21 @@ void WalletAdapter::backup(const QString& _file) {
   }
 }
 
+void WalletAdapter::reset() {
+  Q_CHECK_PTR(m_wallet);
+  save(false, false);
+  lock();
+  m_wallet->removeObserver(this);
+  m_isSynchronized = false;
+  m_newTransactionsNotificationTimer.stop();
+  m_lastWalletTransactionId = std::numeric_limits<quint64>::max();
+  Q_EMIT walletCloseCompletedSignal();
+  QCoreApplication::processEvents();
+  delete m_wallet;
+  m_wallet = nullptr;
+  unlock();
+}
+
 quint64 WalletAdapter::getTransactionCount() const {
   Q_CHECK_PTR(m_wallet);
   try {

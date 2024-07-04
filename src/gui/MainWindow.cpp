@@ -307,6 +307,15 @@ void MainWindow::backupWallet() {
     }
 }
 
+void MainWindow::resetWallet() {
+  Q_ASSERT(WalletAdapter::instance().isOpen());
+  if (QMessageBox::warning(this, tr("Warning"), tr("Your wallet will be reset and restored from blockchain.\n"
+    "Are you sure?"), QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok) {
+    WalletAdapter::instance().reset();
+    WalletAdapter::instance().open("");
+  }
+}
+
 void MainWindow::encryptWallet() {
   if (Settings::instance().isEncrypted()) {
     bool error = false;

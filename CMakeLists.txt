@@ -19,6 +19,7 @@ include_directories(${CMAKE_BINARY_DIR}
     cryptonote/include
     cryptonote/src)
 
+set(Boost_NO_BOOST_CMAKE ON)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Network REQUIRED)
@@ -91,6 +92,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/crypto/slow-hash.c
   cryptonote/src/crypto/slow-hash.cpp
   cryptonote/src/crypto/tree-hash.c
+  cryptonote/src/crypto/balloon.c
   cryptonote/src/CryptoNoteCore/BlockchainIndices.cpp
   cryptonote/src/CryptoNoteCore/BlockchainMessages.cpp
   cryptonote/src/CryptoNoteCore/BlockIndex.cpp
@@ -173,6 +175,7 @@ set(CRYPTONOTE_SOURCES
   cryptonote/src/BlockchainExplorer/BlockchainExplorer.cpp
   cryptonote/src/BlockchainExplorer/BlockchainExplorerDataBuilder.cpp
   cryptonote/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
+  cryptonote/src/Mnemonics/electrum-words.cpp
 )
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
@@ -261,7 +264,7 @@ qt5_use_modules(${PROJECT_NAME} Widgets Gui Network)
 set(CPACK_PACKAGE_NAME ${CN_PROJECT_NAME})
 set(CPACK_PACKAGE_VERSION ${CN_VERSION})
 set(CPACK_PACKAGE_VENDOR "BXC-project")
-set(CPACK_PACKAGE_CONTACT "http://bitcedi.org")
+set(CPACK_PACKAGE_CONTACT "https://www.citadelplatform.org/")
 set(CPACK_STRIP_FILES ON)
 if (APPLE)
     set(CPACK_GENERATOR DragNDrop)
@@ -271,29 +274,29 @@ elseif (UNIX)
     find_program(RPMBUILD rpmbuild)
 
     install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
-    install(FILES src/bitcediwallet.desktop DESTINATION share/applications)
-    install(FILES src/images/cryptonote.png DESTINATION share/pixmaps RENAME bitcedi.png)
-    install(FILES copyright DESTINATION share/doc/bitcediwallet)
+    install(FILES src/citadelwallet.desktop DESTINATION share/applications)
+    install(FILES src/images/cryptonote.png DESTINATION share/pixmaps RENAME citadel.png)
+    install(FILES copyright DESTINATION share/doc/citadelwallet)
 
     if (NOT RPMBUILD)
         set(CPACK_GENERATOR DEB)
         set(CPACK_DEBIAN_PACKAGE_NAME ${CPACK_PACKAGE_NAME})
         set(CPACK_SYSTEM_NAME amd64)
-        set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <bitcedi@gmail.com>")
+        set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <citadel@gmail.com>")
         set(CPACK_DEBIAN_PACKAGE_SECTION Office)
         set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-        set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Bitcedi BXC wallet
- Bitcedi is a decentrilized privacy protected peer-to-peer
- cryptocurrency and untraceable encrypted messaging system. Bitcedi is
- open-source; its design is public, nobody owns or controls Bitcedi and
+        set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Citadel BXC wallet
+ Citadel is a decentrilized privacy protected peer-to-peer
+ cryptocurrency and untraceable encrypted messaging system. Citadel is
+ open-source; its design is public, nobody owns or controls Citadel and
  everyone can take part.
  .
- Features of the Bitcedi wallet listed bellow:
+ Features of the Citadel wallet listed bellow:
  * Classic Bitcoin alike appearance in CryptoNote based cryptocurrency,
    made with QT and open-source.
  * Instant anonymous BXC transfers and transfers notifications
  * Instant untraceable encrypted messages transfers and notifications
- * Safe and secure, full Bitcedi network node in wallet, fast network
+ * Safe and secure, full Citadel network node in wallet, fast network
    syncronization.
  * Wallet encryption
  * Fast and hardware optimized
@@ -306,19 +309,19 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSIO
         set(CPACK_RPM_PACKAGE_LICENSE "MIT")
         set(CPACK_RPM_PACKAGE_GROUP Office)
         set(CPACK_RPM_PACKAGE_REQUIRES "qt5-qtbase >= 5.3.2, qt5-qtbase-gui >= 5.3.2")
-        set(CPACK_RPM_PACKAGE_SUMMARY "Bitcedi wallet")
-        set(CPACK_RPM_PACKAGE_DESCRIPTION "Open-source Bitcedi GUI wallet
- Bitcedi is a decentrilized privacy protected peer-to-peer
- cryptocurrency and untraceable encrypted messaging system. Bitcedi is
- open-source; its design is public, nobody owns or controls Bitcedi and
+        set(CPACK_RPM_PACKAGE_SUMMARY "Citadel wallet")
+        set(CPACK_RPM_PACKAGE_DESCRIPTION "Open-source Citadel GUI wallet
+ Citadel is a decentrilized privacy protected peer-to-peer
+ cryptocurrency and untraceable encrypted messaging system. Citadel is
+ open-source; its design is public, nobody owns or controls Citadel and
  everyone can take part.
 
- Features of the Bitcedi wallet listed bellow:
+ Features of the Citadel wallet listed bellow:
  *Classic Bitcoin alike appearance in CryptoNote based cryptocurrency,
     made with QT and open-source.
- *Instant anonymous Bitcedi transfers and transfers notifications
+ *Instant anonymous Citadel transfers and transfers notifications
  *Instant untraceable encrypted messages transfers and notifications
- *Safe and secure, full Bitcedi network node in wallet, fast network
+ *Safe and secure, full Citadel network node in wallet, fast network
     syncronization.
  *Wallet encryption
  *Fast and hardware optimized
