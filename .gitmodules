@@ -1,0 +1,7 @@
+[submodule "cryptonote"]
+	path = cryptonote
+	url = https://github.com/rpedroso/Platform-Citadel
+	branch = fix_compilation
+[submodule "libqrencode"]
+	path = libqrencode
+	url = https://github.com/fukuchi/libqrencode
