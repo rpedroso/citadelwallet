@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Citadel Wallet
+Comment=Citadel wallet
+Exec=citadelwallet
+Terminal=false
+Type=Application
+Icon=citadel
+MimeType=x-scheme-handler/citadelwallet;
+Categories=Office;Finance;
