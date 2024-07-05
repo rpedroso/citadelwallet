@@ -14,10 +14,13 @@ all-debug: build-debug
 
 cmake-release:
 	mkdir -p build/release
-	cd build/release && cmake -D CMAKE_BUILD_TYPE=Release ../..
+	# For now it will the release build will be type debug
+	# there is an issue with the release build.
+	cd build/release && cmake -D CMAKE_BUILD_TYPE=Debug ../..
 
 build-release: cmake-release
 	cd build/release && $(MAKE)
+	cd build/release && strip citadelwallet
 
 test-release: build-release
 	cd build/release && $(MAKE) test
@@ -26,12 +29,12 @@ all-release: build-release
 
 package-deb: cmake-release
 	mkdir -p build/release
-	cd build/release && cmake -D CMAKE_BUILD_TYPE=Release ../..
+	cd build/release && cmake -D CMAKE_BUILD_TYPE=Debug ../..
 	cd build/release && $(MAKE) package
 
 package-rpm: 
 	mkdir -p build/release
-	cd build/release && cmake -D CMAKE_BUILD_TYPE=Release -D PACKRPM=1 ../..
+	cd build/release && cmake -D CMAKE_BUILD_TYPE=Debug -D PACKRPM=1 ../..
 	cd build/release && $(MAKE) package
 	
 clean:

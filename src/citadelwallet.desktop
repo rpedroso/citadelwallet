@@ -5,6 +5,6 @@ Comment=Citadel wallet
 Exec=citadelwallet
 Terminal=false
 Type=Application
-Icon=citadel
+Icon=cryptonote
 MimeType=x-scheme-handler/citadelwallet;
 Categories=Office;Finance;

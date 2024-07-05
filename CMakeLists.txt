@@ -234,6 +234,7 @@ elseif (UNIX)
     set(PLATFORM_DIR Linux)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -std=c++11")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -maes -std=c11")
+    set(RELEASE_FLAGS "-Ofast -DNDEBUG -Wno-unused-variable")
   endif (APPLE)
 endif ()
 
@@ -263,7 +264,7 @@ qt5_use_modules(${PROJECT_NAME} Widgets Gui Network)
 
 set(CPACK_PACKAGE_NAME ${CN_PROJECT_NAME})
 set(CPACK_PACKAGE_VERSION ${CN_VERSION})
-set(CPACK_PACKAGE_VENDOR "BXC-project")
+set(CPACK_PACKAGE_VENDOR "CTL-project")
 set(CPACK_PACKAGE_CONTACT "https://www.citadelplatform.org/")
 set(CPACK_STRIP_FILES ON)
 if (APPLE)
@@ -271,21 +272,19 @@ if (APPLE)
     install(TARGETS ${PROJECT_NAME} BUNDLE DESTINATION .)
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}.-${VERSION_RELEASE}")
 elseif (UNIX)
-    find_program(RPMBUILD rpmbuild)
-
     install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
     install(FILES src/citadelwallet.desktop DESTINATION share/applications)
     install(FILES src/images/cryptonote.png DESTINATION share/pixmaps RENAME citadel.png)
     install(FILES copyright DESTINATION share/doc/citadelwallet)
 
-    if (NOT RPMBUILD)
+    if (NOT PACKRPM)
         set(CPACK_GENERATOR DEB)
         set(CPACK_DEBIAN_PACKAGE_NAME ${CPACK_PACKAGE_NAME})
         set(CPACK_SYSTEM_NAME amd64)
         set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR} <citadel@gmail.com>")
         set(CPACK_DEBIAN_PACKAGE_SECTION Office)
         set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-        set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Citadel BXC wallet
+        set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Citadel CTL wallet
  Citadel is a decentrilized privacy protected peer-to-peer
  cryptocurrency and untraceable encrypted messaging system. Citadel is
  open-source; its design is public, nobody owns or controls Citadel and
@@ -294,7 +293,7 @@ elseif (UNIX)
  Features of the Citadel wallet listed bellow:
  * Classic Bitcoin alike appearance in CryptoNote based cryptocurrency,
    made with QT and open-source.
- * Instant anonymous BXC transfers and transfers notifications
+ * Instant anonymous CTL transfers and transfers notifications
  * Instant untraceable encrypted messages transfers and notifications
  * Safe and secure, full Citadel network node in wallet, fast network
    syncronization.
